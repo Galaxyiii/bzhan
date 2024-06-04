@@ -1,0 +1,57 @@
+from datetime import datetime
+
+import pymongo
+from tqdm import tqdm
+import numpy as np
+
+# MongoDB
+M_HOST="localhost"  # 数据库host
+M_PORT=27017  # 数据库端口
+M_USER=None  # 如果没有用户则设为None
+M_PASSWORD=None  # 如果没有密码则设为None
+
+client = pymongo.MongoClient(host=M_HOST, port=M_PORT, username=M_USER, password=M_PASSWORD)
+mydb = client["bzhan"]
+
+def insert_many_data(col_name, data):
+    '''
+    向数据库中插入列表数据(多条)
+    :param col_name Collection名称 
+    :param data list数据
+    '''
+    col = mydb[col_name]
+    col.insert_many(data)
+
+
+def insert_one_data(col_name, data):
+    '''
+    向数据库中插入数据
+    :param col_name Collection名称 
+    :param data 数据(一般是dict)
+    '''
+    col = mydb[col_name]
+    col.insert_one(data)
+
+def update_data():
+    '''
+    计算各种比率并更新到数据库中
+    '''
+    col = mydb["bilibili"]
+    cursor = col.find({}).limit(2000000)
+    col.bulk_write([pymongo.UpdateOne({"_id": item["_id"]}, {"$set": {
+            "coin_rate": item["coin"] / (item["coin"] + 1),
+            "favorite_rate": item["favorites"] / (item["favorites"] + 1),
+            "like_rate": item["like"] / (item["like"] + 1),
+            "danmaku_rate": item["video_review"] / (item["video_review"] + 1),
+            "reply_rate": item["review"] / (item["review"] + 1),
+            "share_rate": item["share"] / (item["share"] + 1),
+            "interact_rate": (item["review"] + item["video_review"]) / np.log(item["play"] + 2),
+            }})for item in tqdm(cursor)])
+
+def query_all_video_tags():
+    '''
+    查询所有视频的tags
+    '''
+    col = mydb["bilibili"]
+    cursor = col.find({}).limit(2000000)
+    return [(x["tag"], x["pubdate"]) for x in tqdm(cursor)]
