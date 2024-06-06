@@ -41,8 +41,6 @@ def initialize(txt_file):
     data.createOrReplaceTempView("data")
     return spark
 
-
-
 # 入选次数最多的10个up主
 def top_popular_up(spark,base_dir):
     popular_up = spark.sql(

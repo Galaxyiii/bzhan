@@ -25,12 +25,6 @@ def check_file_exists(file_path):
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
 
-# Adjust model paths relative to the current script location
-# model_path = get_absolute_path("./data/VideoTitle-TFIDF.model")
-# aid_path = get_absolute_path("./data/VideoTitle-Aid.txt")
-# dictionary_path = get_absolute_path("./data/VideoTitle-Dic.dic")
-# corpus_path = get_absolute_path("./data/VideoTitle-Corpus.corpus")
-
 model_path = get_absolute_path("data\VideoTitle-TFIDF.model")
 aid_path = get_absolute_path("data\VideoTitle-Aid.txt")
 dictionary_path = get_absolute_path("data\VideoTitle-Dic.dic")

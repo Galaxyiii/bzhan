@@ -23,8 +23,6 @@ def getWeek_json(url,json_path):
     # 休眠，确保不会被反爬
     time.sleep(1)
 
-
-
 if __name__=='__main__':
     # 官方api
     url='https://api.bilibili.com/x/web-interface/popular/series/one?number={}'

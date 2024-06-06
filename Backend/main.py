@@ -1,6 +1,5 @@
 import sys
-import sys
-sys.path.append('G:/BigDataProject-main')  # 确保这是你的项目根目录路径
+sys.path.append('G:/bigdataproject')  # 确保这是你的项目根目录路径
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware # 跨域

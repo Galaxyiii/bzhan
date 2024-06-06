@@ -9,4 +9,14 @@
     <option name="format" value="PLAIN" />
     <option name="myDocStringFormat" value="Plain" />
   </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/Backend" />
+        <option value="$MODULE_DIR$/DataAnlysis" />
+        <option value="$MODULE_DIR$/Spider" />
+        <option value="$MODULE_DIR$/Visualization" />
+      </list>
+    </option>
+  </component>
 </module>

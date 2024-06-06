@@ -8,7 +8,7 @@ import nest_asyncio
 
 from Backend.basic import successResponse, failResponse
 from Backend.database.db import query_overall_situation, query_words_count, query_overall_situation_day, \
-    query_tags_count_by_word, query_tag_count_change, query_tags_count_in_day, query_tags_relation
+     query_tags_count_by_word, query_tag_count_change, query_tags_count_in_day, query_tags_relation
 
 nest_asyncio.apply()
 

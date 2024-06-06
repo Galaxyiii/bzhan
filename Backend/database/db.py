@@ -98,24 +98,6 @@ def query_tag_count_change(tag=""):
     res = col.find({"tag": tag}).sort("day")
     return [(x["day"], x["count"]) for x in res]
 
-
-# def query_tags_count_in_day(day=None, num=10):
-#     '''
-#     :param day 不指定就是返回所有月份的数据, 指定了就是那个月的排名前num的tag
-#     :param num 要看前多少个
-#     :return {1: [(tag, count), ...], 2:[], ...}
-#     '''
-#     col = mydb["day_tags"]
-#     if day != None:
-#         res = col.find({"day": day}).sort("count", -1).limit(num)
-#         return [(x["tag"], x["count"]) for x in res]
-#     else:
-#         res = col.aggregate([{
-#             "$facet": dict((str(day), [ { "$match": { "day":day } }, {"$sort" : {"count": -1}}, { "$limit": num } ]) for day in range(1, 10))
-#         }])
-#         return dict((int(day), [(x["tag"], x["count"]) for x in mp]) for temp in res for month, mp in temp.items())
-#
-
 def query_tags_count_in_day(day=None, num=10):
     '''
     查询每天的tag统计
@@ -160,21 +142,3 @@ def query_tags_relation(tags):
         return ans
     except:
         raise Exception("tag不在数据库中")
-
-# def modify_date_to_day(col_name):
-#     '''
-#     修改日期字段为day，只保留日期中的日，转换为整数类型存储
-#     '''
-#     col = mydb[col_name]
-#     for doc in col.find():
-#         if 'date' in doc:
-#             day = int(doc['date'].split('-')[-1])
-#             col.update_one({'_id': doc['_id']}, {'$set': {'day': day}})
-#             col.update_one({'_id': doc['_id']}, {'$unset': {'date': ''}})
-#
-#     print("处理完成")
-
-
-# if __name__ == "__main__":
-#     # 调用修改日期字段的函数
-#     modify_date_to_day("day_tags")
